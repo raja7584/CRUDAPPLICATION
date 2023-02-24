@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet,TextInput } from 'react-native';
 
 // create a component
-const Textinput = ({text,onChangeText}) => {
+const Textinput = ({text,onChangeText,value}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>
-            <TextInput style={styles.textinput} onChangeText={onChangeText} />
+            <TextInput value={value} style={styles.textinput} onChangeText={onChangeText} />
         </View>
     );
 };

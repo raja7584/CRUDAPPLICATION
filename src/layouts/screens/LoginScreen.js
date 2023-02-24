@@ -10,7 +10,7 @@ const LoginScreen = ({navigation}) => {
      const filledData=async()=>{
        try {
         const isUser= await auth().signInWithEmailAndPassword(email,password)
-        navigation.navigate('HomeScreen')
+        navigation.navigate('ReadProduct')
         console.log(isUser);
        } catch (error) {
         console.log(error);
