@@ -1,6 +1,6 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity,Alert } from 'react-native';
 import database from '@react-native-firebase/database';
 
 
@@ -56,6 +56,24 @@ const ReadProduct = ({navigation}) => {
     
     //     return unsubscribe;
     //   }, [navigation]);
+    const handleRemove=(id)=>{
+        console.log('id=====>',id);
+        Alert.alert('', 'Are you want to delete ?', [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: async() => {
+                try {
+                    const removeData= await database().ref(`user/${id}`).remove()
+                    
+                } catch (error) {
+                    console.log('error========>',error);
+                }
+            }},
+          ]);
+    }
     return (
         <ScrollView style={styles.container}>
             {
@@ -88,7 +106,7 @@ const ReadProduct = ({navigation}) => {
                                             DATA.map((btn) =>
                                                 <TouchableOpacity key={btn.id.toString()
                                                 } onPress={()=>btn.id=='0' ? navigation.navigate('HomeScreen'):
-                                                btn.id=='1' ? navigation.navigate('EditScreen',{item:item}):undefined
+                                                btn.id=='1' ? navigation.navigate('EditScreen',{item:item}):btn.id=='2'?handleRemove(item.id):undefined
                                                 }>
                                                     <Text>{btn.name}</Text>
                                                 </TouchableOpacity>
