@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,TextInput } from 'react-native';
-
+import { COLORS } from '../components/GlobalStyle';
 // create a component
 const Textinput = ({text,onChangeText,value}) => {
     return (
@@ -20,11 +20,13 @@ const styles = StyleSheet.create({
         padding:5
     },
     textinput:{
-        backgroundColor:'#71a2de',
+        backgroundColor:COLORS.profileBackGroundColor,
         borderRadius:5
     },
     text:{
-        marginBottom:5
+        marginBottom:5,
+        color :'#818282',
+        fontSize:18
     }
 });
 
