@@ -3,10 +3,23 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import AppNavigation from "./src/layouts/navigation/AppNavigation";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 export default function App({navigation}) {
-
+    const [response, setResponse] = useState()
+    const [loading, setLoading] = useState(true)
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 4000);
+    }, [])
+    console.log('load',loading);
+    if (loading) {
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            < ActivityIndicator size={'large'} />
+        </View>
+    }
     // const [response,setResponse]=useState()
     // const [loading,setLoading]=useState(true)
     // useEffect(()=>{

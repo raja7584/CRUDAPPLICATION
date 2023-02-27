@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Button from '../components/Button';
 import Textinput from '../components/Textinput';
 import database from '@react-native-firebase/database';
+import { COLORS } from '../components/GlobalStyle';
 
 const EditScreen = ({ route,navigation }) => {
     const data = route.params.item
@@ -43,11 +44,14 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        // backgroundColor: '#2c3e50',
+        backgroundColor: COLORS.primary,
         padding: 10
     },
     img: {
         height: '30%',
+        width:'70%',
+        alignSelf:'center',
+        borderRadius:10
         // marginBottom:5
         // width:70
     }

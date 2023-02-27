@@ -11,7 +11,8 @@ export const COLORS = {
     White:'white',
     tab: 'rgba(130,209,209,1)',
     profileBackGroundColor:'#a4dbd4',
-    orange:'#FF8D76'
+    orange:'#FF8D76',
+    skyLight:'rgb(230, 255, 255)'
 }
 
 export const {height, width} = Dimensions.get('window');

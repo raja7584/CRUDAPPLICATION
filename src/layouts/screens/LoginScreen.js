@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
         try {
             const isUser = await auth().signInWithEmailAndPassword(input.email, input.password)
             if (isUser.user._user.uid) {
-                const data = await AsyncStorage.setItem('token', isUser.user._user.uid.toString());
+                const data = await AsyncStorage.setItem('token',isUser.user._user.uid.toString());
 
                 navigation.navigate('ReadProduct')
             }
