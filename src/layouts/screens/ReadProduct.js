@@ -32,7 +32,7 @@ const ReadProduct = ({ navigation }) => {
     useEffect(() => {
         getdata()
     }, [])
-    console.log('data=====>',data);
+    console.log('data=====>', data);
     const getdata = async () => {
         const data = await database().ref('user').once('value')
         // console.log('data==========>', data._snapshot.value);
@@ -65,6 +65,7 @@ const ReadProduct = ({ navigation }) => {
             },
         ]);
     }
+    console.log('data.====', data?.length);
     if (loading) {
         return (
             <View style={styles.activityIndicator}>
@@ -74,51 +75,61 @@ const ReadProduct = ({ navigation }) => {
     } else {
         return (
             <>
-                <Headers screenName={'ALL PRODUCT'} iconName={'plus-box-outline'} btnName={'ADD'} onPress={()=>navigation.navigate('HomeScreen')} />
+                <Headers screenName={'ALL PRODUCT'} iconName={'plus-box-outline'} btnName={'ADD'} onPress={() => navigation.navigate('HomeScreen')} />
+                {
+                    data?.length > 0 ?
 
-                <ScrollView style={styles.container}>
-                    {
-                        data?.map((item) => {
-                            if (item !== null) {
+                        <ScrollView style={styles.container}>
+                            {
+                                data?.map((item) => {
+                                    if (item !== null) {
 
-                                // console.log('item====>', item);
+                                        // console.log('item====>', item);
 
-                                return (
-                                    <View key={item?.id?.toString()} style={styles.productContainer}>
-                                        <Image style={styles.img} source={{ uri: item.image }} />
-                                        <View>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <Text>Product Name :-</Text>
-                                                <Text>{item.name}</Text>
+                                        return (
+                                            <View key={item?.id?.toString()} style={styles.productContainer}>
+                                                <Image style={styles.img} source={{ uri: item.image }} />
+                                                <View>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text>Product Name :-</Text>
+                                                        <Text>{item.name}</Text>
+                                                    </View>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text>Price :-</Text>
+                                                        <Text>{item.price}</Text>
+                                                    </View>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text>Offer Price :-</Text>
+                                                        <Text>{item.offerPrice}</Text>
+                                                    </View>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '65%', }}>
+                                                        {
+                                                            DATA.map((btn) =>
+                                                                <TouchableOpacity style={[styles.btn, { backgroundColor: '#FCE7F3', borderRadius: 4 }]} key={btn.id.toString()
+                                                                } onPress={() =>
+                                                                    btn.id == '1' ? navigation.navigate('EditScreen', { item: item }) : btn.id == '2' ? handleRemove(item.id) : undefined
+                                                                }>
+                                                                    <Text style={{ color: '#831843' }}>{btn.name}</Text>
+                                                                </TouchableOpacity>
+                                                            )
+                                                        }
+                                                    </View>
+                                                </View>
                                             </View>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <Text>Price :-</Text>
-                                                <Text>{item.price}</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <Text>Offer Price :-</Text>
-                                                <Text>{item.offerPrice}</Text>
-                                            </View>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '65%', }}>
-                                                {
-                                                    DATA.map((btn) =>
-                                                        <TouchableOpacity style={[styles.btn, { backgroundColor: '#FCE7F3', borderRadius: 4 }]} key={btn.id.toString()
-                                                        } onPress={() =>
-                                                            btn.id == '1' ? navigation.navigate('EditScreen', { item: item }) : btn.id == '2' ? handleRemove(item.id) : undefined
-                                                        }>
-                                                            <Text style={{ color: '#831843' }}>{btn.name}</Text>
-                                                        </TouchableOpacity>
-                                                    )
-                                                }
-                                            </View>
-                                        </View>
-                                    </View>
-                                )
+                                        )
+                                    }
+                                })
                             }
-                        })
-                    }
 
-                </ScrollView>
+                        </ScrollView>
+                        :
+                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text>
+                                Dont have any product
+                            </Text>
+                        </View>
+
+                }
             </>
 
         );

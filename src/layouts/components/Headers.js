@@ -20,7 +20,7 @@ const Headers = ({btnName,iconName,screenName,onPress,}) => {
             {/* <View style={{position:'absolute',right:0}}> */}
                 <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignSelf: 'center',backgroundColor:'#63bfb9' ,padding:2,borderRadius:2 }}>
                     <Text style={{color:'#fff'}} >{btnName}</Text>
-                    <MaterialCommunityIcons style={{ alignSelf: 'center' }} size={14} name={iconName} />
+                    <MaterialCommunityIcons style={{ alignSelf: 'center',marginLeft:3 }} size={14} name={iconName} />
                 </TouchableOpacity>
             {/* </View> */}
 
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-between',
         paddingHorizontal:10,
-        paddingTop:8
+        paddingTop:8,
+        paddingBottom:8
     },
 });
 
