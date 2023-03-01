@@ -4,39 +4,16 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import AppNavigation from "./src/layouts/navigation/AppNavigation";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator, View } from 'react-native';
-
+import { Provider } from 'react-redux';
+import { store } from './src/store/Store';
 export default function App({navigation}) {
-    const [response, setResponse] = useState()
-    const [loading, setLoading] = useState(true)
-    
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 4000);
-    }, [])
-    console.log('load',loading);
-    if (loading) {
-        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-            < ActivityIndicator size={'large'} />
-        </View>
-    }
-    // const [response,setResponse]=useState()
-    // const [loading,setLoading]=useState(true)
-    // useEffect(()=>{
-// AsyncStorage.getItem('token').then((res)=>{
-//     // setResponse(res)
-//     console.log('res',res);
-
-
-//     res? navigation?.navigate('ReadProduct') :navigation?.navigate('LoginScreen')
-//     console.log('jiiii');
-// })
-// },[])
     return (
+        <Provider store={store}>
         <PaperProvider >
             <NavigationContainer>
                 <AppNavigation/>
             </NavigationContainer>
         </PaperProvider>
+        </Provider>
     );
 }

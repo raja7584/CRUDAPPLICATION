@@ -11,25 +11,15 @@ const Stack = createNativeStackNavigator();
 const AppNavigation = ({ navigation }) => {
     const [response, setResponse] = useState()
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
         }, 2000);
     }, [])
-    // if (loading) {
-    //     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-    //         <Text>loading</Text>
-    //     </View>
-    // }else{
     AsyncStorage.getItem('token').then((res) => {
         setResponse(res)
         console.log('res', res);
-
-        // res?navigation?.navigate('ReadProduct'):undefined
     })
-    // }
-
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

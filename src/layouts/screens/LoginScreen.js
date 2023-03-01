@@ -5,9 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Textinput from '../components/Textinput';
 import Button from '../components/Button';
 import { COLORS } from '../components/GlobalStyle';
+import { useDispatch } from 'react-redux';
+import { UserLogin } from '../../store/action/action';
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch =useDispatch()
     const [input, setInput] = useState({
         email: '',
         password: '',
@@ -17,12 +20,13 @@ const LoginScreen = ({ navigation }) => {
     const filledData = async () => {
         try {
             const isUser = await auth().signInWithEmailAndPassword(input.email, input.password)
+           console.log("isUser==========>",isUser);
+           dispatch(UserLogin(isUser.user._user))
             if (isUser.user._user.uid) {
                 const data = await AsyncStorage.setItem('token',isUser.user._user.uid.toString());
-
+                    
                 navigation.navigate('ReadProduct')
             }
-
             console.log(isUser.user._user.uid);
         } catch (error) {
             console.log(error);

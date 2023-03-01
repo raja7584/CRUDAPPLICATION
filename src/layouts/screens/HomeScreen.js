@@ -6,7 +6,13 @@ import Button from '../components/Button';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import { COLORS } from '../components/GlobalStyle';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { UserProduct } from '../../store/action/action';
 const HomeScreen = ({ navigation }) => {
+  const loGinData = useSelector((state) => state.user?.uid)
+  const dispatch=useDispatch()
   const [product, setProduct] = useState()
   const [loading, setLoading] = useState()
   const [input, setInput] = useState({
@@ -16,11 +22,12 @@ const HomeScreen = ({ navigation }) => {
   })
   const [image, setImage] = useState()
   const [picurl, setPicurl] = useState()
+  const [response, setResponse] = useState()
+
   const onSelectimage = async () => {
     ImagePicker.openPicker({
       cropping: false,
     }).then(image => {
-      console.log('image======>', image);
       setImage(image.path)
     });
   }
@@ -51,9 +58,9 @@ const HomeScreen = ({ navigation }) => {
         image: url ? url : 'hiii',
         price: input.price,
         offerPrice: input.offerPrice,
+        userId: response
       })
-
-      console.log(data);
+      dispatch(UserProduct(input))
       navigation.navigate('ReadProduct')
       setLoading(false)
 
@@ -61,6 +68,9 @@ const HomeScreen = ({ navigation }) => {
 
     }
   }
+  AsyncStorage.getItem('token').then((res) => {
+    setResponse(res)
+})
   const handleOnChange = (text, input) => {
     setInput(prevState => ({ ...prevState, [input]: text }))
   }
